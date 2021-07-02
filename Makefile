@@ -18,7 +18,8 @@
 #
 HOME_TREE := ../
 
-MAKE_TARGETS := 01Hello
+
+MAKE_TARGETS := test
 
 include $(HOME_TREE)/mak_def.inc
 
