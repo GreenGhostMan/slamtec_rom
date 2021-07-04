@@ -1,66 +1,67 @@
 #include <iostream>
-#include <rpos/features/location_provider.h>
+#include <rpos/features/motion_planner.h>
 
-int main(int argc, char** argv)
+int main(int argc,char**argv)
 {
-	rpos::features::LocationProvider lp;
+	rpos::features::MotionPlanner mp;
 
-	/* Methods */
-	std::vector<rpos::features::location_provider::MapType> get_available_maps = lp.getAvailableMaps();
-	/*
-	rpos::features::location_provider::Map getMap( 
-		rpos::features::location_provider::MapType,
-		rpos::core::RectangleF,
-		rpos::features::location_provider:;MapKind 
-		);
-	*/
-
-	/*
-	bool setMap(
-		const rpos::features::location_provider::Map&,
-		rpos::features::location_provider::MapType,
-		rpos::features::location_provider::MapKind
-		);
-	*/
-
-	/* 
-	bool setMapAndPose (
-		const core::Pose& pose;
-		const location_provider::Map& map,
-		const location_provider::MapType& type,
-		const location_provider::MapKind& kind,
-		bool partially
+	/* methods */
+	rpos::actions::MoveAction moveTo(
+		const std::vector<rpos::core::Location>& locations, // vector
+		bool appending,
+		bool isMilestone
 	)
-	*/
 
-	/* 
-	rpos::core::RectangleF getKnownArea(
-		rpos::features::location_provider::MapType,
-		rpos::features::location_provider::MapKind
+	rpos::actions::MoveAction moveTo(
+		const rpos::core::Location& location, // single
+		bool appending,
+		bool isMilestone
 	)
-	*/
 
-	// bool clearMap();
-	// bool clearMap(location_provider::MapKind kind)
-	// rpos::core::Location getLocation();
-	// rpos::core::Pose getPose();
-	// bool setPose(const rpos::core::Pose&)
-	// bool getMapLocation()
-	// bool setMapLocation(bool)
-	// bool getMapUpdate( rpos::features::location_provider::MapKind kind = rpos::features::location_provider::EXPLORER); )
+	rpos::actions::MoveAction moveTo(
+		const std::vector<rpos::core::Location>& locations, // vector locations
+		const motion_planner::MoveOptions& options,
+		float yaw
+	)
 
-	/*
-	bool setMapUpdate(
-		bool update,
-		rpos::features::location_provider::MapKind kind = rpos::features::location_provider::EXPLORER
-	);
-	*/
+	rpos::actions::MoveAction moveTo(
+		const rpos::core::Location& location,  // single location
+		const motion_planner::MoveOptions& options,
+		float yaw
+	)
 
-	// int getLocalizationQuality()
-	// bool getHomePose( rpos::core::Pose )
-	// bool setHomePose( rpos::core::Pose )
-	// rpos::feature::location_providerPointPDF getAuxLocation()
-	// rpos::feature::location_provider::AuxLocationStatus getAuxLocalizationStatus( location_provider::AuxLocalizationSource source );
+	rpos::actions::MoveAction moveBy( const rpos::core::Direction& direction ); // make the robot move along with specified direction,No obstacle avoidance or path planning will be performed.
+
+	rpos::actions::MoveAction moveBy(
+		const rpos::core::Direction& direction,
+		const motion_planner::MoveOptions& options
+	)
+
+	rpos::actions::MoveAction moveBy(
+		float theta,
+		const motion_planner::MoveOption& options
+	)
+
+	// Make the robot move with a turning angle theta
+	rpos::actions::MoveAction rotateTo( const rpos::core::Rotation& orientation )
+
+	rpos::actions::MoveAction rotate( const rpos::core::Rotation& rotation )
+
+	rpos::actions::MoveAction rotate( 
+		const rpos::core::Rotation& rotation,
+		const motion_planner::MoveOptions& options
+	)
+
+	rpos::actions::MoveAction recoverLocalization(
+		const core::RectangleF& area,
+		const motion_planner::RecoverLocalizationOption& options
+	)
+
+	rpos::actions::VelocityControlMoveAction velocityControl()
+
+	rpos::actions::MoveAction getCurrentAction()
+
+	rpos::features::motion_planner::Path searchPath( const rpos::core::Location& )
 	
 	return 0;
 }
